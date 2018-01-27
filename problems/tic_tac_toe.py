@@ -4,7 +4,6 @@ Tic Tac Toe board
 import itertools
 from abc import ABC, abstractmethod
 import random
-import traceback
 
 class _Board(ABC):
     """
@@ -22,15 +21,11 @@ class _Board(ABC):
         """
         Checks if player/pc has won
         """
-        try:
-            win_moves = filter(
-                lambda moves: sum(moves) == 15,
-                map(lambda move_list: list(map(self.board.__getitem__, move_list)), itertools.combinations(move_list, 3))
-            )
-            return len(list(win_moves)) > 0
-        except Exception as exc:
-            print(self.player)
-            raise exc
+        win_moves = filter(
+            lambda moves: sum(moves) == 15,
+            map(lambda move_list: list(map(self.board.__getitem__, move_list)), filter(lambda move_list: None not in move_list, itertools.combinations(move_list, 3)))
+        )
+        return len(list(win_moves)) > 0
 
 
     def move_player(self, pos: int) -> bool:
@@ -72,7 +67,7 @@ class _Board(ABC):
         Gets random blank spot
         """
         check = random.randint(1, 9)
-        while check in self.player and check in self.computer:
+        while check in self.player or check in self.computer:
             check = random.randint(1, 9)
         return check
 
@@ -85,18 +80,8 @@ class BoardQ2(_Board):
         """
         Calculates and moves computer
         """
-        if self.turn == 0:
-            self.computer.append(1)
-        elif self.turn == 1 and 5 not in self.player:
-            self.computer.append(5)
-        elif self.turn == 1:
-            self.computer.append(1)
-        elif self.turn == 2 and 9 not in self.player:
-            self.computer.append(9)
-        elif self.turn == 2:
-            self.computer.append(3)
-
         if self.turn < 3:
+            self.computer.append(self.get_random_blank())
             return
 
         for move_pair in itertools.chain(itertools.combinations(self.computer, 2), itertools.combinations(self.player, 2)):
@@ -149,7 +134,7 @@ class BoardQ1(_Board):
             else:
                 self.computer.append(self.get_any_blank())
 
-        print(self.computer[-1])
+        # print(self.computer[-1])
 
     def get_any_blank(self):
         """
@@ -183,7 +168,7 @@ class BoardQ1(_Board):
         """
         Check next move to make to win from move_list
         """
-        for move in itertools.combinations(move_list, 2):
+        for move in filter(lambda move_list: None not in move_list, itertools.combinations(move_list, 2)):
             pair_sum_dif = 15 - sum(map(self.board.__getitem__, move))
             if 0 < pair_sum_dif < 10:
                 ind = self.board.index(pair_sum_dif)

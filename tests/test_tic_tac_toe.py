@@ -3,7 +3,7 @@ Testing Tic Tac Toe game
 """
 from problems.tic_tac_toe import _Board, BoardQ2, BoardQ1
 
-def run_game(go_first: bool, board_class: _Board):
+def run_game(go_first: bool, board_class: _Board) -> _Board:
     """
     Runs a game
     """
@@ -20,31 +20,40 @@ def run_game(go_first: bool, board_class: _Board):
             board.move_comp()
         board.turn += 1
 
-    if board.check_win(board.player):
-        print(board)
-        print(player_moves)
-        return False
-    return True
+    print(board)
+    print(board.player)
+    print(board.computer)
+    print("\n")
+    return board
 
-NUM_TIME = 1000
+def check_board(board: _Board):
+    for move in board.player:
+        assert move not in board.computer
+    assert len(board.player) + len(board.computer) == 9 or board.check_win(board.player) or board.check_win(board.computer)
+
+NUM_TIME = 100
 def test_q1_0():
     """
     Test Q1 implementation
     """
     for _ in range(NUM_TIME):
-        assert run_game(0, BoardQ1)
+        board = run_game(0, BoardQ1)
+        check_board(board)
 
 def test_q1_1():
     for _ in range(NUM_TIME):
-        assert run_game(1, BoardQ1)
+        board = run_game(1, BoardQ1)
+        check_board(board)
 
 def test_q2_0():
     """
     Test Q1 implementation
     """
     for _ in range(NUM_TIME):
-        assert run_game(0, BoardQ2)
+        board = run_game(0, BoardQ2)
+        check_board(board)
 
 def test_q2_1():
     for _ in range(NUM_TIME):
-        assert run_game(1, BoardQ2)
+        board = run_game(1, BoardQ2)
+        check_board(board)

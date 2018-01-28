@@ -13,3 +13,10 @@ def copy_matrix(prev):
             new_mat[-1].append(prev[r_num][c_num])
 
     return new_mat
+
+def add_set(prev_set: set, ele) -> set:
+    """
+    Adds new value to set and returns set
+    """
+    prev_set.add(ele)
+    return prev_set

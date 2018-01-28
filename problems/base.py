@@ -30,5 +30,6 @@ class BaseProblem(ABC):
     def get_heuristic(self, state):
         """
         Get heuristic value of `state`
+        more heuristic means more likely
         """
         pass

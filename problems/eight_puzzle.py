@@ -28,7 +28,7 @@ class EightPuzzle(BaseProblem):
         ctr = 0
         for row, row_val in enumerate(state):
             for col, _ in enumerate(row_val):
-                ctr += int(self.goal[row][col] != state[row][col])
+                ctr += int(self.goal[row][col] == state[row][col])
         return ctr
 
     def shift_up(self, state):

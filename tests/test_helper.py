@@ -1,6 +1,7 @@
 """
 Test helper functional programming functions
 """
+# pylint: skip-file
 
 from helper.func_prog import compose
 from helper.monads.iomands import func_print

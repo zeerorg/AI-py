@@ -4,7 +4,8 @@ Test problem for testing algos
 
 from problems.base import BaseProblem
 
-class TestProblem(BaseProblem):
+
+class TProblem(BaseProblem):
     """
     Test problem class
     """
@@ -17,11 +18,11 @@ class TestProblem(BaseProblem):
         return state == self.goal
 
     def get_child_states(self, state):
-        return [state+2, state*2, state*state]
+        return [state+2, state*2, state*state, state//4]
 
     def get_heuristic(self, state):
         return -1 * abs(state - self.goal)
 
 # SOME BASIC TEST SCENARIOS
-TEST_PROBLEM1 = TestProblem(2, 10)
-TEST_PROBLEM2 = TestProblem(3, 10)
+TEST_PROBLEM1 = TProblem(2, 10)
+TEST_PROBLEM2 = TProblem(3, 10)

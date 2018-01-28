@@ -1,7 +1,9 @@
 """
 Testing Tic Tac Toe game
 """
-from problems.tic_tac_toe import _Board, BoardQ2, BoardQ1
+from problems.tic_tac_toe.base import _Board
+from problems.tic_tac_toe.ques1 import BoardQ1
+from problems.tic_tac_toe.ques2 import BoardQ2
 
 def run_game(go_first: bool, board_class: _Board) -> _Board:
     """

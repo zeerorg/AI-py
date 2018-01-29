@@ -14,19 +14,33 @@ def compose(*funcs):
         The function at right runs first, so we need to reverse the list
         """
 
-        def func_out(composed_ans, func):
-            """
-            Check if value is wrapped to before getting output
-            """
-            if isinstance(composed_ans, Wrapped):
-                return func(*composed_ans.args)
-            return func(composed_ans)
-
-        return functools.reduce(func_out,
+        return functools.reduce(lambda composed_ans, func: func(composed_ans),
                                 funcs[::-1][1:],
                                 funcs[-1](*fargs, **fkeywords))
 
     return main_func
+
+
+def compose_wrapped_returns(*funcs):
+    """
+    A compose function for only monads
+    The returned ans is unwraped before return
+    """
+    def main_func(*fargs, **fkeywords):
+        """
+        The real returned function
+        """
+
+        return functools.reduce(lambda composed_monad, func: func(*composed_monad.args),
+                                funcs[::-1][1:],
+                                funcs[-1](*fargs, **fkeywords)).args
+
+    return main_func
+
+
+def unwrap_monad(monad):
+    return 
+    pass
 
 
 class Wrapped():

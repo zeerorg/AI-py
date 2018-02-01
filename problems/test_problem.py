@@ -18,11 +18,12 @@ class TProblem(BaseProblem):
         return state == self.goal
 
     def get_child_states(self, state):
-        return [state+2, state*2, state*state, state//4]
+        return [state+2, state*2, state*state, state//4] if state < 1000 else []
 
     def get_heuristic(self, state):
         return -1 * abs(state - self.goal)
 
+
 # SOME BASIC TEST SCENARIOS
-TEST_PROBLEM1 = TProblem(2, 10)
+TEST_PROBLEM1 = TProblem(2, 4)
 TEST_PROBLEM2 = TProblem(3, 10)

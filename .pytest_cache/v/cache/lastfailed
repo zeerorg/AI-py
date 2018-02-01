@@ -1,0 +1,4 @@
+{
+  "tests/test_hill_climb.py::test_eight_puz": true,
+  "tests/test_hill_climb.py::test_eight_puz_steep": true
+}

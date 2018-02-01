@@ -2,6 +2,7 @@
 General Help functions
 """
 
+
 def copy_matrix(prev):
     """
     Creates copy of a matrix
@@ -14,9 +15,14 @@ def copy_matrix(prev):
 
     return new_mat
 
+
 def add_set(prev_set: set, ele) -> set:
     """
     Adds new value to set and returns set
     """
     prev_set.add(ele)
     return prev_set
+
+
+def to_matrix_tuple(matrix: list) -> tuple:
+    return tuple(tuple(x) for x in matrix)
